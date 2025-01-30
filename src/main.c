@@ -6,41 +6,34 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/01/30 09:01:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:49:56 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_fprintf.h"
+#include "philosopher.h"
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-void *mythread(void *arg)
+void	*mythread(void *arg)
 {
-	printf("Starting Thread Execution...\n");
-	int *c = (int *)malloc(sizeof(4));
-	*c = 4;
+	int	*c;
 
+	(void)arg;
+	printf("Starting Thread Execution...\n");
+	c = (int *)malloc(sizeof(4));
+	*c = 4;
 	printf("Finished Thread Execution...\n");
 	return (c);
 }
 
-int main(int argc, char const *argv[])
+int	main(int ac, char const **av)
 {
-	pthread_t thread;
-	int i = 0;
-	int *result = NULL;
+	t_data	data;
 
-	printf("Starting Execution...\n");
-	pthread_create(&thread, NULL, mythread, NULL);
-
-	printf("Starting While Execution...\n");
-	while (i < 1000000000)
-		i++;
-	printf("Finished While Execution...\n");
-	pthread_join(thread, (void **)&result);
-	printf("Waited for the thread to finish its execution...\n");
-	if (result)
-		printf("Here is the result of the thread function %d\n", *result);
+	if (ac < 5 || ac > 6)
+		return (ft_fprintf(STDERR_FILENO, HOW_TO_USE_ERROR), EXIT_SUCCESS);
+	parse_arguments(&data, ac, (char **)av);
 	return (EXIT_SUCCESS);
 }
-
