@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 10:04:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:40:33 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int	main(int ac, char const **av)
 	if (data.forks == NULL)
 		return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_FORK_CREATION),
 			EXIT_FAILURE);
+	pthread_mutex_init(&data.mutex, NULL);
 	create_philosophers_threads(&data);
+	wait_for_all_threads(&data);
 	free_philosophers_array(&data);
 	free_forks_array(&data);
 	return (EXIT_SUCCESS);

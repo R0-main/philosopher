@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 10:05:46 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:40:15 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 # define PHILOSOPHER_H
 
+# include <pthread.h>
 # include <stdbool.h>
 # include <stdlib.h>
-# include <pthread.h>
 
 # define BAD_ARGUMENTS \
 	"please use valids arguments,\
@@ -46,6 +46,7 @@ typedef enum e_action
 
 typedef struct s_philosopher
 {
+	int				id;
 	t_e_action		action;
 	pthread_t		thread;
 }					t_philosopher;
@@ -65,7 +66,14 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				require_eat_count;
+	pthread_mutex_t	mutex;
 }					t_data;
+
+typedef struct s_thread_data
+{
+	t_data			*data;
+	t_philosopher	*philosopher;
+}					t_thread_data;
 
 //-------------------------------------------------
 //
@@ -81,7 +89,7 @@ bool				parse_arguments(t_data *data, char **av);
 //
 //-------------------------------------------------
 
-t_philosopher		*create_philosopher(void);
+t_philosopher		*create_philosopher(int id);
 void				create_philosophers_array(t_data *data);
 void				free_philosophers_array(t_data *data);
 t_fork				*create_fork(void);
@@ -89,6 +97,7 @@ void				create_forks_array(t_data *data);
 void				free_until_end_fork(t_fork **array, int i, int max);
 void				free_forks_array(t_data *data);
 
+void				wait_for_all_threads(t_data *data);
 void				create_philosophers_threads(t_data *data);
 
 //-------------------------------------------------

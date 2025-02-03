@@ -6,14 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 09:16:43 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:31:12 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "philosopher.h"
 
-t_philosopher	*create_philosopher(void)
+t_philosopher	*create_philosopher(int id)
 {
 	t_philosopher	*philo;
 
@@ -22,6 +22,7 @@ t_philosopher	*create_philosopher(void)
 		return (NULL);
 	ft_bzero(philo, sizeof(t_philosopher));
 	philo->action = THINK;
+	philo->id = id;
 	return (philo);
 }
 
@@ -40,7 +41,7 @@ void	create_philosophers_array(t_data *data)
 	array[data->number_of_philo] = NULL;
 	while (i < data->number_of_philo)
 	{
-		array[i] = create_philosopher();
+		array[i] = create_philosopher(i);
 		if (array[i] == NULL)
 		{
 			free_until_end(array, 0, data->number_of_philo);
