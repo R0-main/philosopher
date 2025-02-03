@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 09:12:21 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/03 10:04:44 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ int	main(int ac, char const **av)
 	if (data.philosophers == NULL)
 		return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_PHILO_CREATION),
 			EXIT_FAILURE);
-
+	create_forks_array(&data);
+	if (data.forks == NULL)
+		return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_FORK_CREATION),
+			EXIT_FAILURE);
+	create_philosophers_threads(&data);
 	free_philosophers_array(&data);
+	free_forks_array(&data);
 	return (EXIT_SUCCESS);
 }

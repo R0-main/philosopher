@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 09:14:57 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/03 10:05:46 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include <stdbool.h>
 # include <stdlib.h>
+# include <pthread.h>
 
 # define BAD_ARGUMENTS \
 	"please use valids arguments,\
@@ -23,7 +24,11 @@
 
 # define MALLOC_FAILED_ON_PHILO_CREATION \
 	"a malloc failled during\
-a philosopher creation\n"
+ a philosopher creation\n"
+
+# define MALLOC_FAILED_ON_FORK_CREATION \
+	"a malloc failled during\
+ a fork creation\n"
 
 # define HOW_TO_USE_ERROR \
 	"./philosopher \
@@ -42,12 +47,19 @@ typedef enum e_action
 typedef struct s_philosopher
 {
 	t_e_action		action;
+	pthread_t		thread;
 }					t_philosopher;
+
+typedef struct s_fork
+{
+	t_philosopher	*user;
+}					t_fork;
 
 typedef struct s_data
 {
 	bool			one_of_philo_died;
 	t_philosopher	**philosophers;
+	t_fork			**forks;
 	int				number_of_philo;
 	int				time_to_die;
 	int				time_to_eat;
@@ -72,6 +84,12 @@ bool				parse_arguments(t_data *data, char **av);
 t_philosopher		*create_philosopher(void);
 void				create_philosophers_array(t_data *data);
 void				free_philosophers_array(t_data *data);
+t_fork				*create_fork(void);
+void				create_forks_array(t_data *data);
+void				free_until_end_fork(t_fork **array, int i, int max);
+void				free_forks_array(t_data *data);
+
+void				create_philosophers_threads(t_data *data);
 
 //-------------------------------------------------
 //
