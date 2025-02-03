@@ -26,7 +26,9 @@ INFO				=	ⓘ
 FT_LIBC 			= ./dependencies/ft_libc/ft_libc.a
 
 SRCS				=	src/main.c\
-							src/parsing/parsing.c
+							src/parsing/parsing.c\
+							src/philosophers/create.c\
+							src/philosophers/free.c\
 
 SRC_COUNT			=	$(words $(SRCS))
 

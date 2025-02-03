@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"philosopher.h": "c",
-		"ft_fprintf.h": "c"
+		"ft_fprintf.h": "c",
+		"libft.h": "c"
 	}
 }
