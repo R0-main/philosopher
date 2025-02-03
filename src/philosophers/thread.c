@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:00:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 14:27:56 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/03 15:34:25 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 static void	*main_threads_loop(void *ptr)
 {
 	t_thread_data	*data;
+	int				time;
 
 	data = (t_thread_data *)ptr;
 	(void)data;
 	pthread_mutex_lock(&data->data->mutex);
-	ft_fprintf(1, "Hey from %d\n", data->philosopher->id);
+	gettimeofday(&data->philosopher->last_action_date, NULL);
+	time = (data->philosopher->last_action_date.tv_sec + 3600) % 86400;
+	ft_fprintf(1, "Hey from %d ", data->philosopher->id);
+	ft_fprintf(1, "at %d:%d:%d\n", time / 3600, (time % 3600) / 60, time % 60);
 	pthread_mutex_unlock(&data->data->mutex);
 	free(ptr);
 	return (NULL);
