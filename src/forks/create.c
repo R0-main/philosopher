@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 09:29:19 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/04 08:54:57 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_fork	*create_fork(void)
 	if (!philo)
 		return (NULL);
 	ft_bzero(philo, sizeof(t_fork));
-	philo->user = NULL;
+	philo->used = false;
 	return (philo);
 }
 

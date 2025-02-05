@@ -28,10 +28,15 @@ FT_LIBC 			= ./dependencies/ft_libc/ft_libc.a
 SRCS				=	src/main.c\
 							src/parsing/parsing.c\
 							src/philosophers/create.c\
+							src/philosophers/actions.c\
 							src/philosophers/free.c\
 							src/philosophers/thread.c\
 							src/forks/create.c\
 							src/forks/free.c\
+							src/forks/link.c\
+							src/timer/timer.c\
+							src/waiter/thread.c\
+							src/waiter/ask.c\
 
 SRC_COUNT			=	$(words $(SRCS))
 

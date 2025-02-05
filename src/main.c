@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 13:40:33 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:02:54 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,29 @@ void	*mythread(void *arg)
 	return (c);
 }
 
+// int	main(void)
+// {
+// 	t_timer	timer;
+
+// 	/* here, do your time-consuming job */
+// 	timer.duration = 200; // ms
+// 	start_timer(&timer);
+// 	int i = 0;
+// 	while (!is_timer_finished(&timer))
+// 		i++;
+// 	return (0);
+// }
+
+void	init_data(t_data *data)
+{
+	pthread_mutex_init(&data->mutex, NULL);
+	data->one_of_philo_died = false;
+	link_forks_with_philosophers(data);
+	create_philosophers_threads(data);
+	data->waiter.queue = NULL;
+	create_waiter_thread(data);
+}
+
 int	main(int ac, char const **av)
 {
 	t_data	data;
@@ -44,8 +67,7 @@ int	main(int ac, char const **av)
 	if (data.forks == NULL)
 		return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_FORK_CREATION),
 			EXIT_FAILURE);
-	pthread_mutex_init(&data.mutex, NULL);
-	create_philosophers_threads(&data);
+	init_data(&data);
 	wait_for_all_threads(&data);
 	free_philosophers_array(&data);
 	free_forks_array(&data);

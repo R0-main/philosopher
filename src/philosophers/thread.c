@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:00:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 15:34:25 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:23:33 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,25 @@
 static void	*main_threads_loop(void *ptr)
 {
 	t_thread_data	*data;
-	int				time;
 
 	data = (t_thread_data *)ptr;
-	(void)data;
+	if (!data)
+		return (NULL);
 	pthread_mutex_lock(&data->data->mutex);
-	gettimeofday(&data->philosopher->last_action_date, NULL);
-	time = (data->philosopher->last_action_date.tv_sec + 3600) % 86400;
-	ft_fprintf(1, "Hey from %d ", data->philosopher->id);
-	ft_fprintf(1, "at %d:%d:%d\n", time / 3600, (time % 3600) / 60, time % 60);
+	trigger_action(data->philosopher, EAT, data->data->time_to_eat);
 	pthread_mutex_unlock(&data->data->mutex);
-	free(ptr);
-	return (NULL);
+	while (!data->data->one_of_philo_died)
+	{
+		pthread_mutex_lock(&data->data->mutex);
+		if (is_timer_finished(&data->philosopher->action_timer))
+		{
+			print_action(data->philosopher, false);
+			// start_timer(&data->philosopher->action_timer);
+			exit(1);
+		}
+		pthread_mutex_unlock(&data->data->mutex);
+	}
+	return (free(ptr), NULL);
 }
 
 void	create_philosophers_threads(t_data *data)
@@ -53,13 +60,9 @@ void	wait_for_all_threads(t_data *data)
 	int	i;
 
 	i = -1;
-	while (i < 1000000)
-	{
-		i++;
-	}
-	i = -1;
 	while (data->philosophers[++i])
 	{
-		pthread_join(data->philosophers[i]->thread, NULL);
+		if (data->philosophers[i]->thread)
+			pthread_join(data->philosophers[i]->thread, NULL);
 	}
 }
