@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/05 15:24:07 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:40:24 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 # define PHILOSOPHER_H
 
+# include "ft_fprintf.h"
 # include "libft.h"
 # include "timer.h"
-# include "ft_fprintf.h"
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdlib.h>
@@ -44,6 +44,7 @@
 
 typedef enum e_action
 {
+	NONE = -1,
 	EAT,
 	SLEEP,
 	THINK
@@ -59,7 +60,9 @@ typedef struct s_philosopher
 	int				id;
 	t_e_action		action;
 	t_timer			action_timer;
+	t_timer			last_eat_time;
 	pthread_t		thread;
+	bool			asked_forks;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 }					t_philosopher;
@@ -115,10 +118,12 @@ void				link_forks_with_philosophers(t_data *data);
 void				trigger_action(t_philosopher *philo, t_e_action action,
 						int duration);
 
+void				say(t_philosopher *philo, const char *str1, const char *str2);
 void				wait_for_all_threads(t_data *data);
 void				print_action(t_philosopher *philo, bool start);
 void				create_waiter_thread(t_data *data);
 void				create_philosophers_threads(t_data *data);
+void				ask_for_a_fork(t_data *data, t_philosopher *philosopher);
 
 //-------------------------------------------------
 //

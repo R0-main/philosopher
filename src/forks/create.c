@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/04 08:54:57 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:55:43 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 t_fork	*create_fork(void)
 {
-	t_fork	*philo;
+	t_fork	*fork;
 
-	philo = (t_fork *)malloc(sizeof(t_fork));
-	if (!philo)
+	fork = (t_fork *)malloc(sizeof(t_fork));
+	if (!fork)
 		return (NULL);
-	ft_bzero(philo, sizeof(t_fork));
-	philo->used = false;
-	return (philo);
+	ft_bzero(fork, sizeof(t_fork));
+	fork->used = false;
+	return (fork);
 }
 
 void	create_forks_array(t_data *data)

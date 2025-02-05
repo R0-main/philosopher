@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/05 15:25:01 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:37:56 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	print_action(t_philosopher *philo, bool start)
 
 	action_name = get_action_name(philo->action);
 	if (start)
-		ft_fprintf(STDOUT_FILENO, "Philosopher n°%d starts %s!\n", philo->id,
-			action_name);
+		say(philo, "starts", action_name);
 	else
-		ft_fprintf(STDOUT_FILENO, "Philosopher n°%d finished %s!\n", philo->id,
-			action_name);
+		say(philo, "finished", action_name);
 }

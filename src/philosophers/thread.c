@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:00:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/05 15:23:33 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:40:41 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,24 @@
 static void	*main_threads_loop(void *ptr)
 {
 	t_thread_data	*data;
+	t_philosopher	*philo;
 
 	data = (t_thread_data *)ptr;
 	if (!data)
 		return (NULL);
-	pthread_mutex_lock(&data->data->mutex);
-	trigger_action(data->philosopher, EAT, data->data->time_to_eat);
-	pthread_mutex_unlock(&data->data->mutex);
+	philo = data->philosopher;
 	while (!data->data->one_of_philo_died)
 	{
 		pthread_mutex_lock(&data->data->mutex);
-		if (is_timer_finished(&data->philosopher->action_timer))
+		if (philo->asked_forks == false)
 		{
-			print_action(data->philosopher, false);
-			// start_timer(&data->philosopher->action_timer);
-			exit(1);
+			say(philo, "asked for a fork!", "");
+			ask_for_a_fork(data->data, philo);
+		}
+		else if (is_timer_finished(&philo->action_timer))
+		{
+			print_action(philo, false);
+			philo->action_timer.duration = -1;
 		}
 		pthread_mutex_unlock(&data->data->mutex);
 	}

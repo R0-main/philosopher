@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 13:31:12 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:57:59 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_philosopher	*create_philosopher(int id)
 	if (!philo)
 		return (NULL);
 	ft_bzero(philo, sizeof(t_philosopher));
-	philo->action = THINK;
+	philo->action = NONE;
 	philo->id = id;
 	return (philo);
 }

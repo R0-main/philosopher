@@ -30,6 +30,7 @@ SRCS				=	src/main.c\
 							src/philosophers/create.c\
 							src/philosophers/actions.c\
 							src/philosophers/free.c\
+							src/philosophers/say.c\
 							src/philosophers/thread.c\
 							src/forks/create.c\
 							src/forks/free.c\
