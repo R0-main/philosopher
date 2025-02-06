@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:35:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 15:08:27 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:16:36 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	handle_eat_action(t_data *data, t_doubled_list **current)
 			&& philo->action == THINK
 			&& is_timer_finished(&philo->action_timer)))
 	{
+		pthread_mutex_lock(&philo->left_fork->mutex);
+		pthread_mutex_lock(&philo->right_fork->mutex);
 		philo->left_fork->used = true;
 		philo->right_fork->used = true;
 		philo->asked_forks = false;
@@ -79,8 +81,8 @@ void	*main_waiter_loop(void *ptr)
 		return (NULL);
 	while (!data->one_of_philo_died)
 	{
-		pthread_mutex_lock(&data->mutex);
 		current = data->waiter.queue;
+		pthread_mutex_lock(&data->mutex);
 		while (current != NULL)
 			handle_eat_action(data, &current);
 		check_for_limit(data);
