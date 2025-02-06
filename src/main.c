@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 09:33:17 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:43:53 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	init_data(t_data *data)
 	data->waiter.queue = NULL;
 	create_philosophers_threads(data);
 	create_waiter_thread(data);
+	pthread_join(data->waiter.thread, NULL);
 }
 
 int	main(int ac, char const **av)

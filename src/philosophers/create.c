@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 09:37:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:17:19 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	create_philosophers_array(t_data *data)
 			return ;
 		}
 		array[i]->starvation_timer.duration = data->time_to_die;
-		// start_timer(&array[i]->starvation_timer);
+		start_timer(&array[i]->starvation_timer);
 		i++;
 	}
 	data->philosophers = array;

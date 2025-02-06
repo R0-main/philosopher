@@ -33,6 +33,11 @@ SRCS				=	src/main.c\
 							src/philosophers/starvation.c\
 							src/philosophers/say.c\
 							src/philosophers/thread.c\
+							src/lists/ft_dlstadd_back.c\
+							src/lists/ft_dlstclear.c\
+							src/lists/ft_dlstlast.c\
+							src/lists/ft_dlstnew.c\
+							src/lists/ft_dlstremoveone.c\
 							src/forks/create.c\
 							src/forks/free.c\
 							src/forks/link.c\

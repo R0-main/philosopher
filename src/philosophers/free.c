@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/03 11:43:59 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:42:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_until_end(t_philosopher **array, int i, int max)
 {
 	while (array[i] && i < max)
 	{
+		if (array[i]->right_fork)
+			free(array[i]->right_fork);
 		free(array[i]);
 		i++;
 	}

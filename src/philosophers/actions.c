@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 09:31:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:05:09 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	trigger_action(t_philosopher *philo, t_e_action action, int duration)
 static const char	*get_action_name(t_e_action action)
 {
 	if (action == EAT)
-		return ("eating");
+		return ("eating 🍔");
 	if (action == SLEEP)
-		return ("sleeping");
+		return ("sleeping 💤");
 	if (action == THINK)
-		return ("thinking");
+		return ("thinking 💭");
 	return ("undifined");
 }
 
@@ -39,7 +39,7 @@ void	print_action(t_philosopher *philo, bool start)
 
 	action_name = get_action_name(philo->action);
 	if (start)
-		say(philo, "starts", action_name);
+		say(philo, "\033[1;32mstarts\033[0m", action_name);
 	else
-		say(philo, "finished", action_name);
+		say(philo, "\033[1;31mfinished\033[0m", action_name);
 }

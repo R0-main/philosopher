@@ -1,18 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   say.c                                              :+:      :+:    :+:   */
+/*   ft_dlstadd_back.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 15:33:49 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 09:58:42 by rguigneb         ###   ########.fr       */
+/*   Created: 2024/09/30 19:26:01 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/02/06 11:50:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	say(t_philosopher *philo, const char *str1, const char *str2)
+void	test(void *ptr)
 {
-	ft_fprintf(STDOUT_FILENO, "\e[1;37m🧑 Philosopher n°%d\e[0m %s %s\n", philo->id, str1, str2);
+	t_philosopher *p;
+
+	p = (t_philosopher *)ptr;
+	say(p, "hey", "");
+}
+
+void	ft_dlstadd_back(t_doubled_list **alst, t_doubled_list *new)
+{
+	t_doubled_list	*last;
+
+	if (!alst || !new)
+		return ;
+	last = ft_dlstlast(*alst);
+	// ft_lstiter((t_list *)*alst, test);
+	if (!last)
+	{
+		*alst = new;
+	}
+	else
+	{
+		new->prev = last;
+		last->next = new;
+	}
+	// ft_lstiter((t_list *)*alst, test);
 }
