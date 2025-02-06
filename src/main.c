@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 14:32:29 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:09:14 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	init_data(t_data *data)
 	if (!data->philosophers)
 		return ;
 	data->waiter.queue = NULL;
-	data->time_to_think = (data->time_to_die) - data->time_to_eat - data->time_to_sleep - 100;
+	data->time_to_think = (data->time_to_die) - data->time_to_eat
+		- data->time_to_sleep - 100;
 	create_philosophers_threads(data);
 	create_waiter_thread(data);
 	pthread_join(data->waiter.thread, NULL);
@@ -67,16 +68,16 @@ int	main(int ac, char const **av)
 	if (data.philosophers == NULL)
 		return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_PHILO_CREATION),
 			EXIT_FAILURE);
-	// create_forks_array(&data);
-	// if (data.forks == NULL)
-	// 	return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_FORK_CREATION),
-	// 		EXIT_FAILURE);
 	init_data(&data);
 	if (!data.philosophers)
 		return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_PHILO_CREATION),
 			EXIT_FAILURE);
 	wait_for_all_threads(&data);
 	free_philosophers_array(&data);
-	// free_forks_array(&data);
 	return (EXIT_SUCCESS);
 }
+// free_forks_array(&data);
+// create_forks_array(&data);
+// if (data.forks == NULL)
+// 	return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_FORK_CREATION),
+// 		EXIT_FAILURE);

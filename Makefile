@@ -46,7 +46,6 @@ SRCS				=	src/main.c\
 							src/forks/link.c\
 							src/timer/timer.c\
 							src/waiter/thread.c\
-							src/waiter/queue.c\
 							src/waiter/ask.c\
 
 SRC_COUNT			=	$(words $(SRCS))

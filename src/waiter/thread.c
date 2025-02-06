@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:35:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 14:31:33 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:08:27 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,11 @@ static void	check_for_limit(t_data *data)
 	data->one_of_philo_died = true;
 }
 
-void	*main_waiter_loop(void *ptr)
+void	free_queue(t_data *data)
 {
-	t_data			*data;
 	t_doubled_list	*current;
 	t_doubled_list	*tmp;
 
-	data = (t_data *)ptr;
-	if (!data)
-		return (NULL);
-	while (!data->one_of_philo_died)
-	{
-		pthread_mutex_lock(&data->mutex);
-		current = data->waiter.queue;
-		// sort_queue_by_priority(data, current);
-		while (current != NULL)
-		{
-			handle_eat_action(data, &current);
-		}
-		check_for_limit(data);
-		pthread_mutex_unlock(&data->mutex);
-	}
 	pthread_mutex_lock(&data->mutex);
 	current = data->waiter.queue;
 	while (current != NULL)
@@ -83,6 +67,26 @@ void	*main_waiter_loop(void *ptr)
 		current = tmp;
 	}
 	pthread_mutex_unlock(&data->mutex);
+}
+
+void	*main_waiter_loop(void *ptr)
+{
+	t_data			*data;
+	t_doubled_list	*current;
+
+	data = (t_data *)ptr;
+	if (!data)
+		return (NULL);
+	while (!data->one_of_philo_died)
+	{
+		pthread_mutex_lock(&data->mutex);
+		current = data->waiter.queue;
+		while (current != NULL)
+			handle_eat_action(data, &current);
+		check_for_limit(data);
+		pthread_mutex_unlock(&data->mutex);
+	}
+	free_queue(data);
 	return (NULL);
 }
 
