@@ -1,5 +1,5 @@
 # Main
-NAME				=	philosopher
+NAME				=	philo
 CC					=	gcc
 
 CFLAGS				=	-Wall -Werror -Wextra -Idependencies/ft_libc/includes -Iincludes -fPIE
@@ -30,6 +30,7 @@ SRCS				=	src/main.c\
 							src/philosophers/create.c\
 							src/philosophers/actions.c\
 							src/philosophers/free.c\
+							src/philosophers/starvation.c\
 							src/philosophers/say.c\
 							src/philosophers/thread.c\
 							src/forks/create.c\

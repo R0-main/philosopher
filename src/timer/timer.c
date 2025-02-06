@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:38:54 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 09:24:19 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:37:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	start_timer(t_timer *timer)
 	}
 	else
 		timer->end_at.tv_usec = timer->started_at.tv_usec + usec;
+	timer->started = true;
 }
 
 bool	date_lowest_than(t_time t1, t_time t2)

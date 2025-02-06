@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 09:21:47 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:38:18 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ typedef struct s_philosopher
 	int				id;
 	t_e_action		action;
 	t_timer			action_timer;
-	t_timer			last_eat_time;
+	t_timer			eat_timer;
+	t_timer			starvation_timer;
 	pthread_t		thread;
 	bool			asked_forks;
 	t_fork			*left_fork;
@@ -126,6 +127,7 @@ void				create_waiter_thread(t_data *data);
 void				create_philosophers_threads(t_data *data);
 void				ask_for_a_fork(t_data *data, t_philosopher *philosopher);
 void				sort_queue_by_priority(t_list *lst);
+bool				is_starving(t_philosopher *philo);
 
 //-------------------------------------------------
 //

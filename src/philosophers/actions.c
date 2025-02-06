@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/05 15:37:56 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:31:15 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	trigger_action(t_philosopher *philo, t_e_action action, int duration)
 	philo->action = action;
 	philo->action_timer.duration = duration;
 	start_timer(&philo->action_timer);
+	if (action == EAT)
+		start_timer(&philo->starvation_timer);
 	print_action(philo, true);
 }
 

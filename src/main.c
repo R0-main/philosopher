@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 09:01:47 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:33:17 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ int	main(int ac, char const **av)
 	init_data(&data);
 	wait_for_all_threads(&data);
 	free_philosophers_array(&data);
-	free_forks_array(&data);
+	// free_forks_array(&data);
 	return (EXIT_SUCCESS);
 }

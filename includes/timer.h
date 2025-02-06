@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 09:24:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:36:43 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_timer
 	int					duration;
 	t_time				started_at;
 	t_time				end_at;
+	bool				started;
 }						t_timer;
 
 //-------------------------------------------------

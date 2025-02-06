@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 09:18:17 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 09:25:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:38:18 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static bool	is_lower_than(t_philosopher *philo, t_philosopher *prev_philo)
 {
-	if (prev_philo->action != NONE
-		|| date_lowest_than(philo->last_eat_time.end_at,
-			prev_philo->last_eat_time.end_at))
+	if (prev_philo->action != NONE || date_lowest_than(philo->eat_timer.end_at,
+			prev_philo->eat_timer.end_at))
 		return (true);
 	return (false);
 }
