@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:00:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 15:11:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:20:12 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ static void	*main_threads_loop(void *ptr)
 	philo = data->philosopher;
 	while (!data->data->one_of_philo_died)
 	{
-		if (is_starving(philo))
-		{
-			usleep(1);
-			pthread_mutex_lock(&data->data->mutex);
-			data->data->one_of_philo_died = true;
-			pthread_mutex_unlock(&data->data->mutex);
-			say(philo, "died of starvation 💀 !", "");
-		}
 		pthread_mutex_lock(&data->data->mutex);
 		handle_actions(data->data, philo);
 		pthread_mutex_unlock(&data->data->mutex);

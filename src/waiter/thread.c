@@ -6,37 +6,11 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:35:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 15:16:36 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:39:38 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
-
-void	handle_eat_action(t_data *data, t_doubled_list **current)
-{
-	t_philosopher	*philo;
-
-	(void)data;
-	philo = (t_philosopher *)(*current)->content;
-	if ((philo && philo->left_fork && philo->left_fork->used == false
-			&& philo->right_fork && philo->right_fork->used == false
-			&& philo->action == THINK
-			&& is_timer_finished(&philo->action_timer)))
-	{
-		pthread_mutex_lock(&philo->left_fork->mutex);
-		pthread_mutex_lock(&philo->right_fork->mutex);
-		philo->left_fork->used = true;
-		philo->right_fork->used = true;
-		philo->asked_forks = false;
-		philo->starvation_timer.duration = data->time_to_die;
-		start_timer(&philo->starvation_timer);
-		trigger_action(philo, EAT, data->time_to_eat);
-		ft_dlstremoveone(&data->waiter.queue, (*current));
-		*current = data->waiter.queue;
-		return ;
-	}
-	*current = (*current)->next;
-}
 
 static void	check_for_limit(t_data *data)
 {
@@ -52,43 +26,38 @@ static void	check_for_limit(t_data *data)
 		if (philo->eat_count < data->require_eat_count)
 			return ;
 	}
+	pthread_mutex_lock(&data->mutex);
 	data->one_of_philo_died = true;
+	pthread_mutex_unlock(&data->mutex);
 }
 
-void	free_queue(t_data *data)
+void	handle_starvation(t_data *data, t_philosopher *philo)
 {
-	t_doubled_list	*current;
-	t_doubled_list	*tmp;
-
-	pthread_mutex_lock(&data->mutex);
-	current = data->waiter.queue;
-	while (current != NULL)
+	if (is_starving(philo))
 	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
+		pthread_mutex_lock(&data->mutex);
+		data->one_of_philo_died = true;
+		say(philo, "died of starvation 💀 !", "");
+		exit(1);
+		pthread_mutex_unlock(&data->mutex);
 	}
-	pthread_mutex_unlock(&data->mutex);
 }
 
 void	*main_waiter_loop(void *ptr)
 {
-	t_data			*data;
-	t_doubled_list	*current;
+	t_data	*data;
+	int		i;
 
 	data = (t_data *)ptr;
 	if (!data)
 		return (NULL);
+	i = 0;
 	while (!data->one_of_philo_died)
 	{
-		current = data->waiter.queue;
-		pthread_mutex_lock(&data->mutex);
-		while (current != NULL)
-			handle_eat_action(data, &current);
+		handle_starvation(data, data->philosophers[i % data->number_of_philo]);
+		i++;
 		check_for_limit(data);
-		pthread_mutex_unlock(&data->mutex);
 	}
-	free_queue(data);
 	return (NULL);
 }
 
