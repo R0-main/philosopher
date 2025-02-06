@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/05 08:54:22 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:24:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ typedef struct s_timer
 //-------------------------------------------------
 void					start_timer(t_timer *timer);
 bool					is_timer_finished(t_timer *timer);
+bool					date_lowest_than(t_time t1, t_time t2);
 
 #endif

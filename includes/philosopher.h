@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/05 15:40:24 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:21:47 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,14 @@ void				link_forks_with_philosophers(t_data *data);
 void				trigger_action(t_philosopher *philo, t_e_action action,
 						int duration);
 
-void				say(t_philosopher *philo, const char *str1, const char *str2);
+void				say(t_philosopher *philo, const char *str1,
+						const char *str2);
 void				wait_for_all_threads(t_data *data);
 void				print_action(t_philosopher *philo, bool start);
 void				create_waiter_thread(t_data *data);
 void				create_philosophers_threads(t_data *data);
 void				ask_for_a_fork(t_data *data, t_philosopher *philosopher);
+void				sort_queue_by_priority(t_list *lst);
 
 //-------------------------------------------------
 //

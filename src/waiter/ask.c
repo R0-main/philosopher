@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:31:16 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/05 15:40:53 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:00:54 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ask_for_a_fork(t_data *data, t_philosopher *philosopher)
 {
 	t_list *lst;
 
+	if (!philosopher)
+		return ;
 	lst = ft_lstnew(philosopher);
 	if (!lst)
 		return ;

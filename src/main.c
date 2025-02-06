@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/05 15:57:19 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:01:47 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	init_data(t_data *data)
 	pthread_mutex_init(&data->mutex, NULL);
 	data->one_of_philo_died = false;
 	link_forks_with_philosophers(data);
-	create_philosophers_threads(data);
 	data->waiter.queue = NULL;
+	create_philosophers_threads(data);
 	create_waiter_thread(data);
 }
 
