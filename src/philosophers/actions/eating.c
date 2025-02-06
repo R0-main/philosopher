@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlstlast.c                                      :+:      :+:    :+:   */
+/*   eating.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 19:26:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 13:48:45 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/02/06 14:18:12 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-t_doubled_list	*ft_dlstlast(t_doubled_list *lst)
+void	eating_action(t_data *data, t_philosopher *philo)
 {
-	while (lst && lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	if (philo->action == EAT && is_timer_finished(&philo->action_timer))
+	{
+		print_action(philo, false);
+		if (philo->left_fork)
+			philo->left_fork->used = false;
+		if (philo->right_fork)
+			philo->right_fork->used = false;
+		philo->eat_count++;
+		trigger_action(philo, SLEEP, data->time_to_sleep);
+	}
 }

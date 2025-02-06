@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 12:13:56 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:17:33 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_philosopher
 	t_timer					action_timer;
 	t_timer					eat_timer;
 	t_timer					starvation_timer;
-	t_timer					can_ask_fork_timer;
 	pthread_t				thread;
 	int						eat_count;
 	bool					asked_forks;
@@ -91,6 +90,7 @@ typedef struct s_data
 	t_waiter				waiter;
 	int						number_of_philo;
 	int						time_to_die;
+	int						time_to_think;
 	int						time_to_eat;
 	int						time_to_sleep;
 	int						require_eat_count;
@@ -139,6 +139,12 @@ void						ask_for_a_fork(t_data *data,
 void						sort_queue_by_priority(t_data *data,
 								t_doubled_list *lst);
 bool						is_starving(t_philosopher *philo);
+
+void						handle_actions(t_data *data, t_philosopher *philo);
+void						sleeping_action(t_data *data, t_philosopher *philo);
+void						eating_action(t_data *data, t_philosopher *philo);
+void						thinking_action(t_data *data, t_philosopher *philo);
+
 
 //-------------------------------------------------
 //

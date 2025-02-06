@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 08:49:24 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 08:49:00 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:26:50 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	link_forks_with_philosophers(t_data *data)
 		if (!philosopher->right_fork)
 		{
 			free_until_end(data->philosophers, 0, data->number_of_philo);
+			data->philosophers = NULL;
 			return ;
 		}
 		if (i > 0)

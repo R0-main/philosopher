@@ -28,7 +28,10 @@ FT_LIBC 			= ./dependencies/ft_libc/ft_libc.a
 SRCS				=	src/main.c\
 							src/parsing/parsing.c\
 							src/philosophers/create.c\
-							src/philosophers/actions.c\
+							src/philosophers/actions/actions.c\
+							src/philosophers/actions/sleeping.c\
+							src/philosophers/actions/eating.c\
+							src/philosophers/actions/thinking.c\
 							src/philosophers/free.c\
 							src/philosophers/starvation.c\
 							src/philosophers/say.c\

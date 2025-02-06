@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlstlast.c                                      :+:      :+:    :+:   */
+/*   thinking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 19:26:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 13:48:45 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/02/06 14:21:34 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-t_doubled_list	*ft_dlstlast(t_doubled_list *lst)
+void	thinking_action(t_data *data, t_philosopher *philo)
 {
-	while (lst && lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	(void)data;
+	if (philo->action == NONE && philo->action_timer.started == false)
+	{
+		trigger_action(philo, THINK, 1);
+		ask_for_a_fork(data, philo);
+	}
+	if (philo->action == THINK && is_timer_finished(&philo->action_timer))
+	{
+		// print_action(philo, false);
+		if (!philo->asked_forks)
+			ask_for_a_fork(data, philo);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:00:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 12:18:35 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:05:11 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,7 @@ static void	*main_threads_loop(void *ptr)
 			data->data->one_of_philo_died = true;
 			say(philo, "died of starvation 💀 !", "");
 		}
-		if (is_timer_finished(&philo->action_timer))
-		{
-			print_action(philo, false);
-			philo->action_timer.duration = -1;
-			if (philo->left_fork)
-				philo->left_fork->used = false;
-			if (philo->right_fork)
-				philo->right_fork->used = false;
-			philo->eat_count++;
-			philo->action = NONE;
-		}
-		else if (philo->asked_forks == false && philo->action == NONE)
-		{
-			say(philo, "asked for a fork 🍴 !", "");
-			ask_for_a_fork(data->data, philo);
-		}
+		handle_actions(data->data, philo);
 		pthread_mutex_unlock(&data->data->mutex);
 	}
 	return (free(ptr), NULL);

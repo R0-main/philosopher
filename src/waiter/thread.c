@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:35:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 12:39:10 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:31:33 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,15 @@ void	handle_eat_action(t_data *data, t_doubled_list **current)
 	philo = (t_philosopher *)(*current)->content;
 	if ((philo && philo->left_fork && philo->left_fork->used == false
 			&& philo->right_fork && philo->right_fork->used == false
-			&& (philo->can_ask_fork_timer.started
-				&& is_timer_finished(&philo->can_ask_fork_timer)))
-		|| (!philo->can_ask_fork_timer.started && philo->left_fork
-			&& philo->left_fork->used == false && philo->right_fork
-			&& philo->right_fork->used == false))
+			&& philo->action == THINK
+			&& is_timer_finished(&philo->action_timer)))
 	{
 		philo->left_fork->used = true;
 		philo->right_fork->used = true;
 		philo->asked_forks = false;
+		philo->starvation_timer.duration = data->time_to_die;
+		start_timer(&philo->starvation_timer);
 		trigger_action(philo, EAT, data->time_to_eat);
-		philo->can_ask_fork_timer.duration = data->time_to_eat
-			+ data->time_to_die / 4;
-		start_timer(&philo->can_ask_fork_timer);
 		ft_dlstremoveone(&data->waiter.queue, (*current));
 		*current = data->waiter.queue;
 		return ;
