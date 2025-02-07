@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:35:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 12:47:07 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:20:37 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ bool	handle_starvation(t_data *data, t_philosopher *philo)
 {
 	if (is_starving(philo))
 	{
-		pthread_mutex_lock(&data->mutex);
 		data->one_of_philo_died = true;
-		pthread_mutex_unlock(&data->mutex);
 		say(data, philo, "died of starvation 💀 !", "");
 		return (true);
 	}
@@ -41,11 +39,13 @@ void	*main_waiter_loop(void *ptr)
 	{
 		usleep(1000);
 		philo = data->philosophers[i % data->number_of_philo];
+		// pthread_mutex_lock(&philo->mutex);
 		if (handle_starvation(data, philo))
 			return (NULL);
 		pthread_mutex_lock(&data->mutex);
 		if (data->finished_eat == data->number_of_philo)
 			data->one_of_philo_died = true;
+		// pthread_mutex_unlock(&philo->mutex);
 		pthread_mutex_unlock(&data->mutex);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 12:10:15 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:14:27 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	free_until_end(t_philosopher **array, int i, int max)
 {
 	while (array[i] && i < max)
 	{
+		pthread_mutex_destroy(&array[i]->mutex);
 		if (array[i]->right_fork)
 		{
 			pthread_mutex_destroy(&array[i]->right_fork->mutex);

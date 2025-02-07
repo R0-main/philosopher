@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 13:15:10 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:15:07 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ void	handle_actions(t_data *data, t_philosopher *philo)
 {
 	t_e_action	action;
 
-	pthread_mutex_lock(&data->mutex);
 	action = philo->action;
-	pthread_mutex_unlock(&data->mutex);
-	if (philo->action == NONE && philo->id % 2 == 0)
+	if (action == NONE && philo->id % 2 == 0)
 	{
 		philo->action = THINK;
 		print_action(data, philo, true);

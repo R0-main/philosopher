@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 12:26:32 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:20:16 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_philosopher
 	bool					asked_forks;
 	t_fork					*left_fork;
 	t_fork					*right_fork;
+	pthread_mutex_t			mutex;
 }							t_philosopher;
 
 typedef struct s_doubled_list
