@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 14:14:18 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:41:38 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ t_philosopher	*create_philosopher(int id)
 	ft_bzero(philo, sizeof(t_philosopher));
 	philo->action = NONE;
 	philo->id = id;
+	philo->can_talk = true;
 	return (philo);
 }
 
 void	create_philosophers_array(t_data *data)
 {
-	int				i;
-	t_philosopher	**array;
+	int					i;
+	t_philosopher		**array;
 
 	i = 0;
 	data->philosophers = NULL;

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 14:15:07 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:06:21 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,19 @@ void	print_action(t_data *data, t_philosopher *philo, bool start)
 
 void	handle_actions(t_data *data, t_philosopher *philo)
 {
-	t_e_action	action;
-
-	action = philo->action;
-	if (action == NONE && philo->id % 2 == 0)
+	philo->starvation_timer.duration = data->time_to_die;
+	if (philo->action == NONE && philo->id % 2 == 0)
 	{
 		philo->action = THINK;
 		print_action(data, philo, true);
-		pthread_mutex_lock(&data->mutex);
 		philo->action = EAT;
-		philo->starvation_timer.duration = data->time_to_die;
 		start_timer(&philo->starvation_timer);
-		pthread_mutex_unlock(&data->mutex);
 	}
 	else if (philo->action == NONE)
 	{
-		pthread_mutex_lock(&data->mutex);
 		philo->action = THINK;
-		philo->starvation_timer.duration = data->time_to_die;
-		start_timer(&philo->starvation_timer);
-		pthread_mutex_unlock(&data->mutex);
 		print_action(data, philo, true);
+		start_timer(&philo->starvation_timer);
 	}
 	eating_action(data, philo);
 	sleeping_action(data, philo);

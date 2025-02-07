@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:00:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 14:20:25 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:13:37 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,26 @@
 
 static void	*main_threads_loop(void *ptr)
 {
-	t_thread_data	*data;
+	t_thread_data	*thread_data;
+	t_data			*data;
 	t_philosopher	*philo;
 
-	data = (t_thread_data *)ptr;
-	if (!data)
+	thread_data = (t_thread_data *)ptr;
+	if (!thread_data)
 		return (NULL);
-	philo = data->philosopher;
-	while (!data->data->started)
+	data = thread_data->data;
+	philo = thread_data->philosopher;
+	while (!r_bool(data, &data->started))
 		;
-	while (!data->data->one_of_philo_died)
+	while (!r_bool(data, &data->one_of_philo_died))
 	{
-		handle_actions(data->data, philo);
+		pthread_mutex_lock(&philo->mutex);
+		if (is_starving(philo))
+			return (pthread_mutex_unlock(&philo->mutex), free(ptr), NULL);
+		handle_actions(data, philo);
+		if (is_starving(philo))
+			return (pthread_mutex_unlock(&philo->mutex), free(ptr), NULL);
+		pthread_mutex_unlock(&philo->mutex);
 	}
 	return (free(ptr), NULL);
 }

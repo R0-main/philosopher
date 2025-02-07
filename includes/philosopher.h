@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 14:20:16 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:47:08 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,20 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define BAD_ARGUMENTS "please use valids arguments,\
+# define BAD_ARGUMENTS \
+	"please use valids arguments,\
  only numbers for 0 to INT_MAX are accepeted!\n"
 
-# define MALLOC_FAILED_ON_PHILO_CREATION "a malloc failled during\
+# define MALLOC_FAILED_ON_PHILO_CREATION \
+	"a malloc failled during\
  a philosopher creation\n"
 
-# define MALLOC_FAILED_ON_FORK_CREATION "a malloc failled during\
+# define MALLOC_FAILED_ON_FORK_CREATION \
+	"a malloc failled during\
  a fork creation\n"
 
-# define HOW_TO_USE_ERROR "./philosopher \
+# define HOW_TO_USE_ERROR \
+	"./philosopher \
 <number_of_philosophers> \
 <time_to_die> <time_to_eat> \
 <time_to_sleep> \
@@ -57,6 +61,7 @@ typedef struct s_philosopher
 	int						id;
 	t_e_action				action;
 	t_timer					action_timer;
+	bool					can_talk;
 	t_timer					eat_timer;
 	t_timer					starvation_timer;
 	pthread_t				thread;
@@ -85,6 +90,7 @@ typedef struct s_data
 	bool					started;
 	int						finished_eat;
 	bool					one_of_philo_died;
+	t_philosopher			*died_philo;
 	t_philosopher			**philosophers;
 	t_fork					**forks;
 	t_waiter				waiter;
@@ -144,10 +150,10 @@ void						sleeping_action(t_data *data, t_philosopher *philo);
 void						eating_action(t_data *data, t_philosopher *philo);
 void						thinking_action(t_data *data, t_philosopher *philo);
 
-void	get_left_fork(t_data *data, t_philosopher *philo);
-void	get_right_fork(t_data *data, t_philosopher *philo);
-void	lay_left_fork(t_data *data, t_philosopher *philo);
-void	lay_right_fork(t_data *data, t_philosopher *philo);
+void						get_left_fork(t_data *data, t_philosopher *philo);
+void						get_right_fork(t_data *data, t_philosopher *philo);
+void						lay_left_fork(t_data *data, t_philosopher *philo);
+void						lay_right_fork(t_data *data, t_philosopher *philo);
 
 //-------------------------------------------------
 //
@@ -165,5 +171,14 @@ t_doubled_list				*ft_dlstnew(void *content);
 
 void						ft_dlstremoveone(t_doubled_list **head,
 								t_doubled_list *lst);
+
+bool						r_bool(t_data *data, bool *property);
+int							r_int(t_data *data, int *property);
+t_philosopher				r_philosopher(t_data *data, t_philosopher property);
+
+void						w_bool(pthread_mutex_t *mutex, bool *property,
+								bool value);
+void						custom_usleep(t_data *data, t_philosopher *philo,
+								int duration);
 
 #endif

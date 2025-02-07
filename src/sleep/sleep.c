@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   sleep.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 16:13:44 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/02/07 16:26:27 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/02/07 17:15:37 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "philosopher.h"
 
-void	free_until_end(t_philosopher **array, int i, int max)
+void	custom_usleep(t_data *data, t_philosopher *philo, int duration)
 {
-	while (array[i] && i < max)
-	{
-		pthread_mutex_destroy(&array[i]->mutex);
-		if (array[i]->right_fork)
-		{
-			pthread_mutex_destroy(&array[i]->right_fork->mutex);
-			free(array[i]->right_fork);
-		}
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
+	int sleeped;
 
-void	free_philosophers_array(t_data *data)
-{
-	free_until_end(data->philosophers, 0, data->number_of_philo);
+	sleeped = 0;
+	while (sleeped < duration)
+	{
+		sleeped += 10;
+		usleep(10);
+		(void)philo;
+		if (r_bool(data, &data->one_of_philo_died))
+			return ;
+	}
 }

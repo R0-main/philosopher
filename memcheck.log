@@ -1,0 +1,313 @@
+==781889== Helgrind, a thread error detector
+==781889== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==781889== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==781889== Command: ./philo 2 410 200 200 2
+==781889== Parent PID: 526842
+==781889== 
+==781889== ---Thread-Announcement------------------------------------------
+==781889== 
+==781889== Thread #4 was created
+==781889==    at 0x499F9F3: clone (clone.S:76)
+==781889==    by 0x49A08EE: __clone_internal (clone-internal.c:83)
+==781889==    by 0x490E6D8: create_thread (pthread_create.c:295)
+==781889==    by 0x490F1FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==781889==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A063: create_philosophers_threads (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x1092F9: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889== 
+==781889== ----------------------------------------------------------------
+==781889== 
+==781889== Thread #4: lock order "0x4AA62E8 before 0x4AA6358" violated
+==781889== 
+==781889== Observed (incorrect) order is: acquisition of lock at 0x4AA6358
+==781889==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A4D3: get_right_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109B70: eating_action (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109A84: handle_actions (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109F8E: main_threads_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889== 
+==781889==  followed by a later acquisition of lock at 0x4AA62E8
+==781889==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A463: get_left_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109B97: eating_action (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109A84: handle_actions (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109F8E: main_threads_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889== 
+==781889== Required order was established by acquisition of lock at 0x4AA62E8
+==781889==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A4D3: get_right_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109B70: eating_action (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109A84: handle_actions (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109F8E: main_threads_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889== 
+==781889==  followed by a later acquisition of lock at 0x4AA6358
+==781889==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A463: get_left_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109B97: eating_action (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109A84: handle_actions (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109F8E: main_threads_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889== 
+==781889==  Lock at 0x4AA62E8 was first observed
+==781889==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A5E8: link_forks_with_philosophers (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109277: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889==  Address 0x4aa62e8 is 8 bytes inside a block of size 48 alloc'd
+==781889==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A316: create_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x10A551: link_forks_with_philosophers (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109277: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889==  Block was alloc'd by thread #1
+==781889== 
+==781889==  Lock at 0x4AA6358 was first observed
+==781889==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A5E8: link_forks_with_philosophers (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109277: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889==  Address 0x4aa6358 is 8 bytes inside a block of size 48 alloc'd
+==781889==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A316: create_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x10A551: link_forks_with_philosophers (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109277: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889==  Block was alloc'd by thread #1
+==781889== 
+==781889== 
+{
+   <insert_a_suppression_name_here>
+   Helgrind:LockOrder
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:get_left_fork
+   fun:eating_action
+   fun:handle_actions
+   fun:main_threads_loop
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:start_thread
+   fun:clone
+}
+==781889== ---Thread-Announcement------------------------------------------
+==781889== 
+==781889== Thread #3 was created
+==781889==    at 0x499F9F3: clone (clone.S:76)
+==781889==    by 0x49A08EE: __clone_internal (clone-internal.c:83)
+==781889==    by 0x490E6D8: create_thread (pthread_create.c:295)
+==781889==    by 0x490F1FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==781889==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A063: create_philosophers_threads (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x1092F9: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889== 
+==781889== ----------------------------------------------------------------
+==781889== 
+==781889== Thread #3: lock order "0x4AA6358 before 0x4AA62E8" violated
+==781889== 
+==781889== Observed (incorrect) order is: acquisition of lock at 0x4AA62E8
+==781889==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A4D3: get_right_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109B70: eating_action (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109A84: handle_actions (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109F8E: main_threads_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889== 
+==781889==  followed by a later acquisition of lock at 0x4AA6358
+==781889==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A463: get_left_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109B97: eating_action (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109A84: handle_actions (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109F8E: main_threads_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889== 
+==781889== Required order was established by acquisition of lock at 0x4AA6358
+==781889==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A4D3: get_right_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109B70: eating_action (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109A84: handle_actions (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109F8E: main_threads_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889== 
+==781889==  followed by a later acquisition of lock at 0x4AA62E8
+==781889==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A463: get_left_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109B97: eating_action (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109A84: handle_actions (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109F8E: main_threads_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889== 
+==781889==  Lock at 0x4AA6358 was first observed
+==781889==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A5E8: link_forks_with_philosophers (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109277: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889==  Address 0x4aa6358 is 8 bytes inside a block of size 48 alloc'd
+==781889==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A316: create_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x10A551: link_forks_with_philosophers (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109277: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889==  Block was alloc'd by thread #1
+==781889== 
+==781889==  Lock at 0x4AA62E8 was first observed
+==781889==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A5E8: link_forks_with_philosophers (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109277: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889==  Address 0x4aa62e8 is 8 bytes inside a block of size 48 alloc'd
+==781889==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A316: create_fork (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x10A551: link_forks_with_philosophers (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109277: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889==  Block was alloc'd by thread #1
+==781889== 
+==781889== 
+{
+   <insert_a_suppression_name_here>
+   Helgrind:LockOrder
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:get_left_fork
+   fun:eating_action
+   fun:handle_actions
+   fun:main_threads_loop
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:start_thread
+   fun:clone
+}
+==781889== ---Thread-Announcement------------------------------------------
+==781889== 
+==781889== Thread #1 is the program's root thread
+==781889== 
+==781889== ---Thread-Announcement------------------------------------------
+==781889== 
+==781889== Thread #2 was created
+==781889==    at 0x499F9F3: clone (clone.S:76)
+==781889==    by 0x49A08EE: __clone_internal (clone-internal.c:83)
+==781889==    by 0x490E6D8: create_thread (pthread_create.c:295)
+==781889==    by 0x490F1FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==781889==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10AE7D: create_waiter_thread (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x1092ED: init_data (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109423: main (in /home/rguigneb/projects/philosopher/philo)
+==781889== 
+==781889== ----------------------------------------------------------------
+==781889== 
+==781889== Possible data race during read of size 1 at 0x1FFEFFFA60 by thread #1
+==781889== Locks held: none
+==781889==    at 0x485077C: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x4850A2A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x109459: main (in /home/rguigneb/projects/philosopher/philo)
+==781889== 
+==781889== This conflicts with a previous write of size 4 by thread #2
+==781889== Locks held: none
+==781889==    at 0x4913A90: __pthread_mutex_unlock_usercnt (pthread_mutex_unlock.c:62)
+==781889==    by 0x4913A90: pthread_mutex_unlock@@GLIBC_2.2.5 (pthread_mutex_unlock.c:368)
+==781889==    by 0x4851248: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10A911: r_bool (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x10AE37: main_waiter_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889==  Address 0x1ffefffa60 is on thread #1's stack
+==781889==  in frame #2, created by main (???:)
+==781889== 
+{
+   <insert_a_suppression_name_here>
+   Helgrind:Race
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:main
+}
+==781889== ----------------------------------------------------------------
+==781889== 
+==781889== Possible data race during read of size 1 at 0x4AA6160 by thread #1
+==781889== Locks held: none
+==781889==    at 0x485077C: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x4850A2A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x109D83: free_until_end (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109E7C: free_philosophers_array (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109465: main (in /home/rguigneb/projects/philosopher/philo)
+==781889== 
+==781889== This conflicts with a previous write of size 4 by thread #2
+==781889== Locks held: none
+==781889==    at 0x4913A90: __pthread_mutex_unlock_usercnt (pthread_mutex_unlock.c:62)
+==781889==    by 0x4913A90: pthread_mutex_unlock@@GLIBC_2.2.5 (pthread_mutex_unlock.c:368)
+==781889==    by 0x4851248: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x10ADCC: main_waiter_loop (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x490EAC2: start_thread (pthread_create.c:442)
+==781889==    by 0x499FA03: clone (clone.S:100)
+==781889==  Address 0x4aa6160 is 192 bytes inside a block of size 224 alloc'd
+==781889==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x1096E4: create_philosopher (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x1097D2: create_philosophers_array (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x1093F1: main (in /home/rguigneb/projects/philosopher/philo)
+==781889==  Block was alloc'd by thread #1
+==781889== 
+{
+   <insert_a_suppression_name_here>
+   Helgrind:Race
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:free_until_end
+   fun:free_philosophers_array
+   fun:main
+}
+==781889== ----------------------------------------------------------------
+==781889== 
+==781889== Thread #1: pthread_mutex_destroy of a locked mutex
+==781889==    at 0x4850A76: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x109DD0: free_until_end (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109E7C: free_philosophers_array (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109465: main (in /home/rguigneb/projects/philosopher/philo)
+==781889== 
+{
+   <insert_a_suppression_name_here>
+   Helgrind:Misc
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:free_until_end
+   fun:free_philosophers_array
+   fun:main
+}
+==781889== ----------------------------------------------------------------
+==781889== 
+==781889== Thread #1's call to pthread_mutex_destroy failed
+==781889==    with error code 16 (EBUSY: Device or resource busy)
+==781889==    at 0x4850B43: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==781889==    by 0x109DD0: free_until_end (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109E7C: free_philosophers_array (in /home/rguigneb/projects/philosopher/philo)
+==781889==    by 0x109465: main (in /home/rguigneb/projects/philosopher/philo)
+==781889== 
+{
+   <insert_a_suppression_name_here>
+   Helgrind:PthAPIerror
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:free_until_end
+   fun:free_philosophers_array
+   fun:main
+}
+==781889== 
+==781889== Use --history-level=approx or =none to gain increased speed, at
+==781889== the cost of reduced accuracy of conflicting-access information
+==781889== For lists of detected and suppressed errors, rerun with: -s
+==781889== ERROR SUMMARY: 32 errors from 6 contexts (suppressed: 88885 from 212)

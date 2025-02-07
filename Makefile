@@ -46,6 +46,9 @@ SRCS				=	src/main.c\
 							src/forks/get.c\
 							src/forks/link.c\
 							src/timer/timer.c\
+							src/threads/reading.c\
+							src/threads/writing.c\
+							src/sleep/sleep.c\
 							src/waiter/thread.c\
 							src/waiter/ask.c\
 

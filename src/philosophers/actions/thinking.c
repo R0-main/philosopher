@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 14:16:26 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:13:08 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	thinking_action(t_data *data, t_philosopher *philo)
 {
 	if (philo->action == THINK)
 	{
-		usleep(data->time_to_think * 1000);
-		pthread_mutex_lock(&data->mutex);
+		pthread_mutex_unlock(&philo->mutex);
+		custom_usleep(data, philo, data->time_to_think * 1000);
+		pthread_mutex_lock(&philo->mutex);
 		philo->action = EAT;
-		pthread_mutex_unlock(&data->mutex);
 	}
 }

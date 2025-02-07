@@ -6,13 +6,13 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 13:05:54 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:09:20 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fprintf.h"
-#include "philosopher.h"
 #include "garbadge.h"
+#include "philosopher.h"
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,14 +50,14 @@ void	init_data(t_data *data)
 	if (!data->philosophers)
 		return ;
 	data->waiter.queue = NULL;
-	data->started = false;
+	data->started = true;
 	data->time_to_think = (data->time_to_die) - data->time_to_eat
 		- data->time_to_sleep - 100;
 	if (data->time_to_think < 0)
 		data->time_to_think = 0;
 	data->finished_eat = 0;
-	create_philosophers_threads(data);
 	create_waiter_thread(data);
+	create_philosophers_threads(data);
 	pthread_mutex_lock(&data->mutex);
 	data->started = true;
 	pthread_mutex_unlock(&data->mutex);
@@ -82,6 +82,8 @@ int	main(int ac, char const **av)
 		return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_PHILO_CREATION),
 			EXIT_FAILURE);
 	wait_for_all_threads(&data);
+	if (data.died_philo)
+		say(&data, data.died_philo, "died of starvation 💀 !", "");
 	pthread_mutex_destroy(&data.mutex);
 	free_philosophers_array(&data);
 	free_garbadge();

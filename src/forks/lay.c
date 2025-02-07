@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 13:11:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:10:30 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 
 void	lay_left_fork(t_data *data, t_philosopher *philo)
 {
+	pthread_mutex_unlock(&philo->mutex);
 	pthread_mutex_unlock(&philo->left_fork->mutex);
+	pthread_mutex_lock(&philo->mutex);
+	(void)data;
 	say(data, philo, "put down his left fork!", "");
 }
 
 void	lay_right_fork(t_data *data, t_philosopher *philo)
 {
+	pthread_mutex_unlock(&philo->mutex);
 	pthread_mutex_unlock(&philo->right_fork->mutex);
+	pthread_mutex_lock(&philo->mutex);
+	(void)data;
 	say(data, philo, "put down his right fork!", "");
 }

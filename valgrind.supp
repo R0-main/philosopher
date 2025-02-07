@@ -1,0 +1,40 @@
+{
+   Lock twice
+   Helgrind:Misc
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:init_data
+   fun:main
+}
+{
+   LockOrder
+   Helgrind:LockOrder
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:main_threads_loop
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:start_thread
+   fun:clone
+}
+{
+   <insert_a_suppression_name_here>
+   Helgrind:LockOrder
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:get_right_fork
+   fun:eating_action
+   fun:handle_actions
+   fun:main_threads_loop
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:start_thread
+   fun:clone
+}
+{
+   <insert_a_suppression_name_here>
+   Helgrind:LockOrder
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:get_left_fork
+   fun:eating_action
+   fun:handle_actions
+   fun:main_threads_loop
+   obj:/usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so
+   fun:start_thread
+   fun:clone
+}
