@@ -6,17 +6,17 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 10:19:59 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:59:21 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	trigger_action(t_philosopher *philo, t_e_action action, int duration)
+void	trigger_action(t_data *data, t_philosopher *philo, t_e_action action, int duration)
 {
 	(void)duration;
 	philo->action = action;
-	print_action(philo, true);
+	print_action(data, philo, true);
 }
 
 static const char	*get_action_name(t_e_action action)
@@ -30,15 +30,15 @@ static const char	*get_action_name(t_e_action action)
 	return ("undifined");
 }
 
-void	print_action(t_philosopher *philo, bool start)
+void	print_action(t_data *data, t_philosopher *philo, bool start)
 {
 	const char	*action_name;
 
 	action_name = get_action_name(philo->action);
 	if (start)
-		say(philo, "\033[1;32mstarts\033[0m", action_name);
+		say(data, philo, "\033[1;32mstarts\033[0m", action_name);
 	else
-		say(philo, "\033[1;31mfinished\033[0m", action_name);
+		say(data, philo, "\033[1;31mfinished\033[0m", action_name);
 }
 
 void	handle_actions(t_data *data, t_philosopher *philo)
@@ -55,10 +55,10 @@ void	handle_actions(t_data *data, t_philosopher *philo)
 	{
 		pthread_mutex_lock(&data->mutex);
 		philo->action = THINK;
-		print_action(philo, true);
 		philo->starvation_timer.duration = data->time_to_die;
 		start_timer(&philo->starvation_timer);
 		pthread_mutex_unlock(&data->mutex);
+		print_action(data, philo, true);
 	}
 	eating_action(data, philo);
 	sleeping_action(data, philo);

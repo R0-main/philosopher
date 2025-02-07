@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 09:42:32 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:56:47 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,20 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define BAD_ARGUMENTS "please use valids arguments,\
+# define BAD_ARGUMENTS \
+	"please use valids arguments,\
  only numbers for 0 to INT_MAX are accepeted!\n"
 
-# define MALLOC_FAILED_ON_PHILO_CREATION "a malloc failled during\
+# define MALLOC_FAILED_ON_PHILO_CREATION \
+	"a malloc failled during\
  a philosopher creation\n"
 
-# define MALLOC_FAILED_ON_FORK_CREATION "a malloc failled during\
+# define MALLOC_FAILED_ON_FORK_CREATION \
+	"a malloc failled during\
  a fork creation\n"
 
-# define HOW_TO_USE_ERROR "./philosopher \
+# define HOW_TO_USE_ERROR \
+	"./philosopher \
 <number_of_philosophers> \
 <time_to_die> <time_to_eat> \
 <time_to_sleep> \
@@ -123,19 +127,18 @@ void						create_forks_array(t_data *data);
 void						free_until_end_fork(t_fork **array, int i, int max);
 void						free_forks_array(t_data *data);
 void						link_forks_with_philosophers(t_data *data);
-void						trigger_action(t_philosopher *philo,
+void						trigger_action(t_data *data, t_philosopher *philo,
 								t_e_action action, int duration);
 
-void						say(t_philosopher *philo, const char *str1,
-								const char *str2);
+void						say(t_data *data, t_philosopher *philo,
+								const char *str1, const char *str2);
 void						wait_for_all_threads(t_data *data);
-void						print_action(t_philosopher *philo, bool start);
+void						print_action(t_data *data, t_philosopher *philo,
+								bool start);
 void						create_waiter_thread(t_data *data);
 void						create_philosophers_threads(t_data *data);
 void						ask_for_a_fork(t_data *data,
 								t_philosopher *philosopher);
-void						sort_queue_by_priority(t_data *data,
-								t_doubled_list *lst);
 bool						is_starving(t_philosopher *philo);
 
 void						handle_actions(t_data *data, t_philosopher *philo);

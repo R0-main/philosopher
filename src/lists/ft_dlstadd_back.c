@@ -6,19 +6,11 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:26:01 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 15:09:38 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:54:49 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
-
-void	test(void *ptr)
-{
-	t_philosopher	*p;
-
-	p = (t_philosopher *)ptr;
-	say(p, "hey", "");
-}
 
 void	ft_dlstadd_back(t_doubled_list **alst, t_doubled_list *new)
 {

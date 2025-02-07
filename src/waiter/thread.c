@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:35:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 10:23:49 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:58:48 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	handle_starvation(t_data *data, t_philosopher *philo)
 	{
 		pthread_mutex_lock(&data->mutex);
 		data->one_of_philo_died = true;
-		say(philo, "died of starvation 💀 !", "");
-		exit(1);
 		pthread_mutex_unlock(&data->mutex);
+		say(data, philo, "died of starvation 💀 !", "");
+		exit(1);
 	}
 }
 

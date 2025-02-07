@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:31:16 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 15:09:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:55:35 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void	ask_for_a_fork(t_data *data, t_philosopher *philosopher)
 		return ;
 	ft_dlstadd_back(&data->waiter.queue, lst);
 	philosopher->asked_forks = true;
-	say(philosopher, "asked for a fork 🍴 !", "");
+	say(data, philosopher, "asked for a fork 🍴 !", "");
 }
