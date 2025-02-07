@@ -6,13 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 10:59:21 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:10:32 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	trigger_action(t_data *data, t_philosopher *philo, t_e_action action, int duration)
+void	trigger_action(t_data *data, t_philosopher *philo, t_e_action action,
+		int duration)
 {
 	(void)duration;
 	philo->action = action;

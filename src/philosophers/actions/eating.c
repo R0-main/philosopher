@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 11:02:05 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:13:39 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,12 @@ void	eating_action(t_data *data, t_philosopher *philo)
 {
 	if (philo->action == EAT)
 	{
-		if (!philo->left_fork)
-		{
-			pthread_mutex_lock(&philo->right_fork->mutex);
-			say(data, philo, "has taken his right fork!", "");
-		}
-		else
+		pthread_mutex_lock(&philo->right_fork->mutex);
+		say(data, philo, "has taken his right fork!", "");
+		if (philo->left_fork)
 		{
 			pthread_mutex_lock(&philo->left_fork->mutex);
 			say(data, philo, "has taken his left fork!", "");
-			pthread_mutex_lock(&philo->right_fork->mutex);
-			say(data, philo, "has taken his right fork!", "");
 			pthread_mutex_lock(&data->mutex);
 			start_timer(&philo->starvation_timer);
 			pthread_mutex_unlock(&data->mutex);

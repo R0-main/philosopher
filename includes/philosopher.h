@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 10:56:47 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:10:51 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,16 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define BAD_ARGUMENTS \
-	"please use valids arguments,\
+# define BAD_ARGUMENTS "please use valids arguments,\
  only numbers for 0 to INT_MAX are accepeted!\n"
 
-# define MALLOC_FAILED_ON_PHILO_CREATION \
-	"a malloc failled during\
+# define MALLOC_FAILED_ON_PHILO_CREATION "a malloc failled during\
  a philosopher creation\n"
 
-# define MALLOC_FAILED_ON_FORK_CREATION \
-	"a malloc failled during\
+# define MALLOC_FAILED_ON_FORK_CREATION "a malloc failled during\
  a fork creation\n"
 
-# define HOW_TO_USE_ERROR \
-	"./philosopher \
+# define HOW_TO_USE_ERROR "./philosopher \
 <number_of_philosophers> \
 <time_to_die> <time_to_eat> \
 <time_to_sleep> \
