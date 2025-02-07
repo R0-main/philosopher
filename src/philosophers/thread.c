@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:00:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 15:20:12 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 09:43:33 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static void	*main_threads_loop(void *ptr)
 	if (!data)
 		return (NULL);
 	philo = data->philosopher;
+	while (!data->data->started)
+		;
 	while (!data->data->one_of_philo_died)
 	{
-		pthread_mutex_lock(&data->data->mutex);
 		handle_actions(data->data, philo);
-		pthread_mutex_unlock(&data->data->mutex);
 	}
 	return (free(ptr), NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 15:10:07 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 09:42:32 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_waiter
 
 typedef struct s_data
 {
+	bool					started;
 	bool					one_of_philo_died;
 	t_philosopher			**philosophers;
 	t_fork					**forks;

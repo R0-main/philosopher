@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 15:09:14 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:34:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,16 @@ void	init_data(t_data *data)
 	if (!data->philosophers)
 		return ;
 	data->waiter.queue = NULL;
+	data->started = false;
 	data->time_to_think = (data->time_to_die) - data->time_to_eat
 		- data->time_to_sleep - 100;
+	if (data->time_to_think < 0)
+		data->time_to_think = 0;
 	create_philosophers_threads(data);
 	create_waiter_thread(data);
+	pthread_mutex_lock(&data->mutex);
+	data->started = true;
+	pthread_mutex_unlock(&data->mutex);
 	pthread_join(data->waiter.thread, NULL);
 }
 
