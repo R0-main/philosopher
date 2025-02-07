@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thinking.c                                         :+:      :+:    :+:   */
+/*   lay.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 13:14:40 by rguigneb         ###   ########.fr       */
+/*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
+/*   Updated: 2025/02/07 13:11:05 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "philosopher.h"
 
-void	thinking_action(t_data *data, t_philosopher *philo, t_e_action action)
+void	lay_left_fork(t_data *data, t_philosopher *philo)
 {
-	if (action == THINK)
-	{
-		usleep(data->time_to_think * 1000);
-		pthread_mutex_lock(&data->mutex);
-		philo->action = EAT;
-		pthread_mutex_unlock(&data->mutex);
-	}
+	pthread_mutex_unlock(&philo->left_fork->mutex);
+	say(data, philo, "put down his left fork!", "");
+}
+
+void	lay_right_fork(t_data *data, t_philosopher *philo)
+{
+	pthread_mutex_unlock(&philo->right_fork->mutex);
+	say(data, philo, "put down his right fork!", "");
 }

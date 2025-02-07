@@ -6,12 +6,13 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 10:34:00 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:05:54 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fprintf.h"
 #include "philosopher.h"
+#include "garbadge.h"
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,6 +55,7 @@ void	init_data(t_data *data)
 		- data->time_to_sleep - 100;
 	if (data->time_to_think < 0)
 		data->time_to_think = 0;
+	data->finished_eat = 0;
 	create_philosophers_threads(data);
 	create_waiter_thread(data);
 	pthread_mutex_lock(&data->mutex);
@@ -66,6 +68,7 @@ int	main(int ac, char const **av)
 {
 	t_data	data;
 
+	ft_bzero(&data, sizeof(t_data));
 	if (ac < 5 || ac > 6)
 		return (ft_fprintf(STDERR_FILENO, HOW_TO_USE_ERROR), EXIT_FAILURE);
 	if (!parse_arguments(&data, (char **)av))
@@ -79,7 +82,9 @@ int	main(int ac, char const **av)
 		return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_PHILO_CREATION),
 			EXIT_FAILURE);
 	wait_for_all_threads(&data);
+	pthread_mutex_destroy(&data.mutex);
 	free_philosophers_array(&data);
+	free_garbadge();
 	return (EXIT_SUCCESS);
 }
 // free_forks_array(&data);

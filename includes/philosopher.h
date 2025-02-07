@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 11:10:51 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:26:32 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_waiter
 typedef struct s_data
 {
 	bool					started;
+	int						finished_eat;
 	bool					one_of_philo_died;
 	t_philosopher			**philosophers;
 	t_fork					**forks;
@@ -141,6 +142,11 @@ void						handle_actions(t_data *data, t_philosopher *philo);
 void						sleeping_action(t_data *data, t_philosopher *philo);
 void						eating_action(t_data *data, t_philosopher *philo);
 void						thinking_action(t_data *data, t_philosopher *philo);
+
+void	get_left_fork(t_data *data, t_philosopher *philo);
+void	get_right_fork(t_data *data, t_philosopher *philo);
+void	lay_left_fork(t_data *data, t_philosopher *philo);
+void	lay_right_fork(t_data *data, t_philosopher *philo);
 
 //-------------------------------------------------
 //

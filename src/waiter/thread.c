@@ -6,13 +6,13 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:35:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 11:12:29 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:47:07 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	handle_starvation(t_data *data, t_philosopher *philo)
+bool	handle_starvation(t_data *data, t_philosopher *philo)
 {
 	if (is_starving(philo))
 	{
@@ -20,8 +20,9 @@ void	handle_starvation(t_data *data, t_philosopher *philo)
 		data->one_of_philo_died = true;
 		pthread_mutex_unlock(&data->mutex);
 		say(data, philo, "died of starvation 💀 !", "");
-		exit(1);
+		return (true);
 	}
+	return (false);
 }
 
 void	*main_waiter_loop(void *ptr)
@@ -29,7 +30,6 @@ void	*main_waiter_loop(void *ptr)
 	t_data			*data;
 	t_philosopher	*philo;
 	int				i;
-	int				d;
 
 	data = (t_data *)ptr;
 	if (!data)
@@ -41,11 +41,10 @@ void	*main_waiter_loop(void *ptr)
 	{
 		usleep(1000);
 		philo = data->philosophers[i % data->number_of_philo];
-		handle_starvation(data, philo);
+		if (handle_starvation(data, philo))
+			return (NULL);
 		pthread_mutex_lock(&data->mutex);
-		if (philo->eat_count == data->require_eat_count)
-			d++;
-		if (d == data->number_of_philo)
+		if (data->finished_eat == data->number_of_philo)
 			data->one_of_philo_died = true;
 		pthread_mutex_unlock(&data->mutex);
 		i++;

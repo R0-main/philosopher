@@ -42,7 +42,8 @@ SRCS				=	src/main.c\
 							src/lists/ft_dlstnew.c\
 							src/lists/ft_dlstremoveone.c\
 							src/forks/create.c\
-							src/forks/free.c\
+							src/forks/lay.c\
+							src/forks/get.c\
 							src/forks/link.c\
 							src/timer/timer.c\
 							src/waiter/thread.c\
