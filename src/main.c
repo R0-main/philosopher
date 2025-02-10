@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 17:09:20 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 09:23:55 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void	*mythread(void *arg)
-{
-	int	*c;
-
-	(void)arg;
-	printf("Starting Thread Execution...\n");
-	c = (int *)malloc(sizeof(4));
-	*c = 4;
-	printf("Finished Thread Execution...\n");
-	return (c);
-}
+// int	main(void)
+// {
+// 	custom_usleep(NULL, NULL, 1000);
+// 	return (0);
+// }
 
 // int	main(void)
 // {
@@ -50,6 +44,7 @@ void	init_data(t_data *data)
 	if (!data->philosophers)
 		return ;
 	data->waiter.queue = NULL;
+	data->died_philo = NULL;
 	data->started = true;
 	data->time_to_think = (data->time_to_die) - data->time_to_eat
 		- data->time_to_sleep - 100;
@@ -59,7 +54,9 @@ void	init_data(t_data *data)
 	create_waiter_thread(data);
 	create_philosophers_threads(data);
 	pthread_mutex_lock(&data->mutex);
+	printf("%d\n\n", data->time_to_think);
 	data->started = true;
+	gettimeofday(&data->start_time, 0);
 	pthread_mutex_unlock(&data->mutex);
 	pthread_join(data->waiter.thread, NULL);
 }
@@ -89,8 +86,3 @@ int	main(int ac, char const **av)
 	free_garbadge();
 	return (EXIT_SUCCESS);
 }
-// free_forks_array(&data);
-// create_forks_array(&data);
-// if (data.forks == NULL)
-// 	return (ft_fprintf(STDERR_FILENO, MALLOC_FAILED_ON_FORK_CREATION),
-// 		EXIT_FAILURE);

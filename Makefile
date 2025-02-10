@@ -50,7 +50,6 @@ SRCS				=	src/main.c\
 							src/threads/writing.c\
 							src/sleep/sleep.c\
 							src/waiter/thread.c\
-							src/waiter/ask.c\
 
 SRC_COUNT			=	$(words $(SRCS))
 

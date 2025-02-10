@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 16:47:08 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 09:16:36 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_waiter
 typedef struct s_data
 {
 	bool					started;
+	t_time					start_time;
 	int						finished_eat;
 	bool					one_of_philo_died;
 	t_philosopher			*died_philo;
@@ -132,13 +133,13 @@ void						free_until_end_fork(t_fork **array, int i, int max);
 void						free_forks_array(t_data *data);
 void						link_forks_with_philosophers(t_data *data);
 void						trigger_action(t_data *data, t_philosopher *philo,
-								t_e_action action, int duration);
+								t_e_action action);
 
 void						say(t_data *data, t_philosopher *philo,
 								const char *str1, const char *str2);
 void						wait_for_all_threads(t_data *data);
 void						print_action(t_data *data, t_philosopher *philo,
-								bool start);
+								t_e_action action, bool start);
 void						create_waiter_thread(t_data *data);
 void						create_philosophers_threads(t_data *data);
 void						ask_for_a_fork(t_data *data,
@@ -179,6 +180,6 @@ t_philosopher				r_philosopher(t_data *data, t_philosopher property);
 void						w_bool(pthread_mutex_t *mutex, bool *property,
 								bool value);
 void						custom_usleep(t_data *data, t_philosopher *philo,
-								int duration);
+								long duration);
 
 #endif

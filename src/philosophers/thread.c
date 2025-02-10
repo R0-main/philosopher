@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:00:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/07 17:13:37 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 09:27:54 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ static void	*main_threads_loop(void *ptr)
 	philo = thread_data->philosopher;
 	while (!r_bool(data, &data->started))
 		;
-	while (!r_bool(data, &data->one_of_philo_died))
+	while (1)
 	{
+		if (r_bool(data, &data->one_of_philo_died))
+			break ;
 		pthread_mutex_lock(&philo->mutex);
 		if (is_starving(philo))
 			return (pthread_mutex_unlock(&philo->mutex), free(ptr), NULL);
