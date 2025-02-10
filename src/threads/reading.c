@@ -6,19 +6,19 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:32:45 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 08:28:39 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:08:11 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-bool	r_bool(t_data *data, bool *property)
+bool	r_bool(pthread_mutex_t *mutex, bool *property)
 {
 	bool	r;
 
-	pthread_mutex_lock(&data->mutex);
+	pthread_mutex_lock(mutex);
 	r = *property;
-	pthread_mutex_unlock(&data->mutex);
+	pthread_mutex_unlock(mutex);
 	return (r);
 }
 

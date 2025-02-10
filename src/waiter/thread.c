@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:35:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 09:27:50 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:06:34 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	*main_waiter_loop(void *ptr)
 	if (!data)
 		return (NULL);
 	i = 0;
-	while (!r_bool(data, &data->started))
+	while (!r_bool(&data->mutex, &data->started))
 		;
 	while (1)
 	{
-		if (r_bool(data, &data->one_of_philo_died))
+		if (r_bool(&data->mutex, &data->one_of_philo_died))
 			break ;
 		usleep(100);
 		philo = data->philosophers[i % data->number_of_philo];
@@ -50,9 +50,7 @@ void	*main_waiter_loop(void *ptr)
 		pthread_mutex_unlock(&philo->mutex);
 		if (r_int(data, &data->finished_eat) == r_int(data,
 				&data->number_of_philo))
-		{
 			w_bool(&data->mutex, &data->one_of_philo_died, true);
-		}
 		i++;
 	}
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 09:28:44 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:13:00 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ void	eating_action(t_data *data, t_philosopher *philo)
 			print_action(data, philo, THINK, false);
 			trigger_action(data, philo, EAT);
 			start_timer(&philo->starvation_timer);
-			pthread_mutex_unlock(&philo->mutex);
-			custom_usleep(data, philo, data->time_to_eat);
-			pthread_mutex_lock(&philo->mutex);
+			if (!custom_usleep(data, philo, data->time_to_eat))
+			{
+				lay_left_fork(data, philo);
+				lay_right_fork(data, philo);
+				return ;
+			}
 			lay_left_fork(data, philo);
 			lay_right_fork(data, philo);
 			philo->eat_count++;
@@ -35,9 +38,8 @@ void	eating_action(t_data *data, t_philosopher *philo)
 		}
 		else
 		{
-			pthread_mutex_unlock(&philo->mutex);
-			custom_usleep(data, philo, data->time_to_eat);
-			pthread_mutex_lock(&philo->mutex);
+			if (!custom_usleep(data, philo, data->time_to_die + 10))
+				return ;
 		}
 	}
 }

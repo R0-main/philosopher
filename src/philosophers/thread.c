@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:00:05 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 09:27:54 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:21:56 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,39 @@
 
 static void	*main_threads_loop(void *ptr)
 {
-	t_thread_data	*thread_data;
-	t_data			*data;
 	t_philosopher	*philo;
+	t_data			*data;
 
-	thread_data = (t_thread_data *)ptr;
-	if (!thread_data)
+	philo = (t_philosopher *)ptr;
+	if (!philo)
 		return (NULL);
-	data = thread_data->data;
-	philo = thread_data->philosopher;
-	while (!r_bool(data, &data->started))
+	data = philo->data;
+	while (!r_bool(&data->mutex, &data->started))
 		;
 	while (1)
 	{
-		if (r_bool(data, &data->one_of_philo_died))
+		if (r_bool(&data->mutex, &data->one_of_philo_died))
 			break ;
 		pthread_mutex_lock(&philo->mutex);
 		if (is_starving(philo))
-			return (pthread_mutex_unlock(&philo->mutex), free(ptr), NULL);
+			return (pthread_mutex_unlock(&philo->mutex), NULL);
 		handle_actions(data, philo);
 		if (is_starving(philo))
-			return (pthread_mutex_unlock(&philo->mutex), free(ptr), NULL);
+			return (pthread_mutex_unlock(&philo->mutex), NULL);
 		pthread_mutex_unlock(&philo->mutex);
 	}
-	return (free(ptr), NULL);
+	return (NULL);
 }
 
 void	create_philosophers_threads(t_data *data)
 {
 	int				i;
-	t_thread_data	*thread_data;
 
 	i = -1;
 	while (data->philosophers[++i])
 	{
-		thread_data = malloc(sizeof(t_thread_data));
-		if (!thread_data)
-			return ;
-		thread_data->data = data;
-		thread_data->philosopher = data->philosophers[i];
 		pthread_create(&data->philosophers[i]->thread, NULL, main_threads_loop,
-			(void *)thread_data);
+			(void *)data->philosophers[i]);
 	}
 }
 

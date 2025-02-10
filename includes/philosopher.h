@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 09:16:36 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:15:03 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 <time_to_sleep> \
 [number_of_times_each_philosopher_must_eat]\n"
 
+typedef struct s_data		t_data;
+
 typedef enum e_action
 {
 	NONE = -1,
@@ -69,6 +71,7 @@ typedef struct s_philosopher
 	bool					asked_forks;
 	t_fork					*left_fork;
 	t_fork					*right_fork;
+	t_data					*data;
 	pthread_mutex_t			mutex;
 }							t_philosopher;
 
@@ -173,13 +176,13 @@ t_doubled_list				*ft_dlstnew(void *content);
 void						ft_dlstremoveone(t_doubled_list **head,
 								t_doubled_list *lst);
 
-bool						r_bool(t_data *data, bool *property);
+bool						r_bool(pthread_mutex_t *mutex, bool *property);
 int							r_int(t_data *data, int *property);
 t_philosopher				r_philosopher(t_data *data, t_philosopher property);
 
 void						w_bool(pthread_mutex_t *mutex, bool *property,
 								bool value);
-void						custom_usleep(t_data *data, t_philosopher *philo,
+bool						custom_usleep(t_data *data, t_philosopher *philo,
 								long duration);
 
 #endif
