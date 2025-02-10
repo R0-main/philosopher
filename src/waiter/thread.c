@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:35:56 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 10:06:34 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:47:40 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	handle_starvation(t_data *data, t_philosopher *philo)
 {
+	pthread_mutex_lock(&philo->mutex);
 	if (is_starving(philo))
 	{
 		w_bool(&data->mutex, &data->one_of_philo_died, true);
@@ -21,8 +22,10 @@ bool	handle_starvation(t_data *data, t_philosopher *philo)
 		data->died_philo = philo;
 		philo->can_talk = true;
 		pthread_mutex_unlock(&data->mutex);
+		pthread_mutex_unlock(&philo->mutex);
 		return (true);
 	}
+	pthread_mutex_unlock(&philo->mutex);
 	return (false);
 }
 
@@ -44,10 +47,8 @@ void	*main_waiter_loop(void *ptr)
 			break ;
 		usleep(100);
 		philo = data->philosophers[i % data->number_of_philo];
-		pthread_mutex_lock(&philo->mutex);
 		if (handle_starvation(data, philo))
-			return (pthread_mutex_unlock(&philo->mutex), NULL);
-		pthread_mutex_unlock(&philo->mutex);
+			return (NULL);
 		if (r_int(data, &data->finished_eat) == r_int(data,
 				&data->number_of_philo))
 			w_bool(&data->mutex, &data->one_of_philo_died, true);

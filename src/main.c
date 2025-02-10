@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:54:22 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 10:23:22 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:54:26 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int ac, char const **av)
 			EXIT_FAILURE);
 	wait_for_all_threads(&data);
 	if (data.died_philo)
-		say(&data, data.died_philo, "died of starvation 💀 !", "");
+		say(&data, data.died_philo, , "");
 	pthread_mutex_destroy(&data.mutex);
 	free_philosophers_array(&data);
 	free_garbadge();

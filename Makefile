@@ -57,6 +57,10 @@ OBJS				=	$(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 OBJ_DIR				=	objects
 
+ifeq ($(GOOD_LOOKING_MESSAGES), 1)
+	CFLAGS += -DGOOD_LOOKING_MESSAGE=1
+endif
+
 all : header $(NAME)
 
 $(NAME) : $(FT_LIBC) $(OBJ_DIR)

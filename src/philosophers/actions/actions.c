@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 09:25:07 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:48:43 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ void	trigger_action(t_data *data, t_philosopher *philo, t_e_action action)
 static const char	*get_action_name(t_e_action action)
 {
 	if (action == EAT)
-		return ("eating 🍔");
+		return (EATING_ACTION);
 	if (action == SLEEP)
-		return ("sleeping 💤");
+		return (SLEEPING_ACTION);
 	if (action == THINK)
-		return ("thinking 💭");
-	return ("undifined");
+		return (THINKING_ACTION);
+	return (NONE_ACTION);
 }
+
+#if GOOD_LOOKING_MESSAGE == 1
 
 void	print_action(t_data *data, t_philosopher *philo, t_e_action action,
 		bool start)
@@ -44,6 +46,20 @@ void	print_action(t_data *data, t_philosopher *philo, t_e_action action,
 	else
 		say(data, philo, "\033[1;31mfinished\033[0m", action_name);
 }
+
+#else
+
+void	print_action(t_data *data, t_philosopher *philo, t_e_action action,
+		bool start)
+{
+	const char	*action_name;
+
+	action_name = get_action_name(action);
+	(void)start;
+	say(data, philo, action_name, "");
+}
+
+#endif
 
 void	handle_actions(t_data *data, t_philosopher *philo)
 {
