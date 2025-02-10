@@ -61,9 +61,9 @@ ifeq ($(GOOD_LOOKING_MESSAGES), 1)
 	CFLAGS += -DGOOD_LOOKING_MESSAGES=1
 endif
 
-all : header $(NAME)
+all : $(NAME)
 
-$(NAME) : $(FT_LIBC) $(OBJ_DIR)
+$(NAME) : header $(FT_LIBC) $(OBJ_DIR)
 		@$(CC) $(CFLAGS) $(OBJS) $(FT_LIBC) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
@@ -75,8 +75,10 @@ $(OBJ_DIR): $(OBJS)
 		@if [ ! -d "$(OBJ_DIR)" ]; \
 			then mkdir -p "$(OBJ_DIR)"; \
 		fi
-		@printf "]"
-		@printf "\n"
+		@if [ ! -e "$(NAME)" ]; then \
+			printf "]" ; \
+			printf "\n" ; \
+		fi
 
 $(FT_LIBC) :
 	@if [ ! -e "$(shell dirname $@)" ]; then \
@@ -91,8 +93,10 @@ header:
 		@echo '		|    |   |   Y  \  |  |_(  <_> )___ (  <_> )  |_> >   Y  \  ___/|  | \/'
 		@echo '		|____|   |___|  /__|____/\____/____  >____/|   __/|___|  /\___  >__|'
 		@echo '					\/                   \/      |__|        \/     \/'
-		@printf  "\n"; \
-		printf "Compiling Project : ["
+		@printf  "\n";
+		@if [ ! -e "$(NAME)" ]; \
+			then printf "Compiling Project : ["; \
+		fi
 
 clean :
 		@$(RM) $(OBJ_DIR)
