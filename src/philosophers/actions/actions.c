@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 10:48:43 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:50:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static const char	*get_action_name(t_e_action action)
 	return (NONE_ACTION);
 }
 
-#if GOOD_LOOKING_MESSAGE == 1
+#if GOOD_LOOKING_MESSAGES == 1
 
 void	print_action(t_data *data, t_philosopher *philo, t_e_action action,
 		bool start)
@@ -55,8 +55,8 @@ void	print_action(t_data *data, t_philosopher *philo, t_e_action action,
 	const char	*action_name;
 
 	action_name = get_action_name(action);
-	(void)start;
-	say(data, philo, action_name, "");
+	if (start)
+		say(data, philo, action_name, "");
 }
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:49:42 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 10:55:17 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:50:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,41 +23,45 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# ifndef GOOD_LOOKING_MESSAGE
-#  define GOOD_LOOKING_MESSAGE 0
+# ifndef GOOD_LOOKING_MESSAGES
+#  define GOOD_LOOKING_MESSAGES 0
 # endif
 
-# if GOOD_LOOKING_MESSAGE == 1
-#  define SAY_PRINT "%d 		\e[1;37m🧑 Philosopher n°%d\e[0m %s %s\n "
+# if GOOD_LOOKING_MESSAGES == 1
+#  define SAY_PRINT "%d 		\e[1;37m🧑 Philosopher n°%d\e[0m %s %s\n"
 #  define TAKE_LEFT_FORK "has taken his left fork!"
 #  define TAKE_RIGHT_FORK "has taken his right fork!"
 #  define PUT_DOWN_LEFT_FORK "put down his left fork!"
-#  define PUT_DOWN_RIGHT_FORK "put down his RIGHT fork!"
+#  define PUT_DOWN_RIGHT_FORK "put down his right fork!"
 #  define EATING_ACTION "eating 🍔"
 #  define THINKING_ACTION "thinking 💭"
 #  define SLEEPING_ACTION "sleeping 💤"
 #  define NONE_ACTION "NONE ⛔"
 #  define DEATH_MESSAGE "died of starvation 💀 !"
 # else
-#  define SAY_PRINT "%d %d %s %s\n "
-#  define TAKE_FORK "has taken a fork"
-#  define EATING_ACTION "is eating"
-#  define THINKING_ACTION "is thinking"
-#  define SLEEPING_ACTION "is sleeping"
-#  define DEATH_MESSAGE "died"
+#  define SAY_PRINT "\e[0;35m%d\e[0m \e[1;37m%d\e[0m %s %s\e[0m\n"
+#  define TAKE_FORK "has taken a \e[1;30mfork"
+#  define EATING_ACTION "is \e[1;33meating"
+#  define THINKING_ACTION "is \e[1;36mthinking"
+#  define SLEEPING_ACTION "is \e[1;32msleeping"
+#  define DEATH_MESSAGE "\e[1;31mdied"
 #  define NONE_ACTION "NONE"
 # endif
 
-# define BAD_ARGUMENTS "please use valids arguments,\
+# define BAD_ARGUMENTS \
+	"please use valids arguments,\
  only numbers for 0 to INT_MAX are accepeted!\n"
 
-# define MALLOC_FAILED_ON_PHILO_CREATION "a malloc failled during\
+# define MALLOC_FAILED_ON_PHILO_CREATION \
+	"a malloc failled during\
  a philosopher creation\n"
 
-# define MALLOC_FAILED_ON_FORK_CREATION "a malloc failled during\
+# define MALLOC_FAILED_ON_FORK_CREATION \
+	"a malloc failled during\
  a fork creation\n"
 
-# define HOW_TO_USE_ERROR "./philosopher \
+# define HOW_TO_USE_ERROR \
+	"./philosopher \
 <number_of_philosophers> \
 <time_to_die> <time_to_eat> \
 <time_to_sleep> \
@@ -172,7 +176,7 @@ bool						is_starving(t_philosopher *philo);
 
 void						handle_actions(t_data *data, t_philosopher *philo);
 void						sleeping_action(t_data *data, t_philosopher *philo);
-void						eating_action(t_data *data, t_philosopher *philo);
+bool						eating_action(t_data *data, t_philosopher *philo);
 void						thinking_action(t_data *data, t_philosopher *philo);
 
 void						get_left_fork(t_data *data, t_philosopher *philo);

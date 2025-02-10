@@ -6,13 +6,19 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:49:44 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 10:45:46 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:26:25 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	eating_action(t_data *data, t_philosopher *philo)
+void	lay_forks(t_data *data, t_philosopher *philo)
+{
+	lay_left_fork(data, philo);
+	lay_right_fork(data, philo);
+}
+
+bool	eating_action(t_data *data, t_philosopher *philo)
 {
 	if (philo->action == EAT)
 	{
@@ -20,15 +26,13 @@ void	eating_action(t_data *data, t_philosopher *philo)
 		if (philo->left_fork)
 		{
 			get_left_fork(data, philo);
+			if (is_starving(philo))
+				return (lay_forks(data, philo), false);
+			start_timer(&philo->starvation_timer);
 			print_action(data, philo, THINK, false);
 			trigger_action(data, philo, EAT);
-			start_timer(&philo->starvation_timer);
 			if (!custom_usleep(data, philo, data->time_to_eat))
-			{
-				lay_left_fork(data, philo);
-				lay_right_fork(data, philo);
-				return ;
-			}
+				return (lay_forks(data, philo), false);
 			lay_left_fork(data, philo);
 			lay_right_fork(data, philo);
 			philo->eat_count++;
@@ -37,6 +41,7 @@ void	eating_action(t_data *data, t_philosopher *philo)
 			trigger_action(data, philo, SLEEP);
 		}
 		else if (!custom_usleep(data, philo, data->time_to_die + 10))
-			return ;
+			return (false);
 	}
+	return (true);
 }

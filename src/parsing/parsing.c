@@ -6,7 +6,7 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:59:59 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/06 12:55:23 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:31:57 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ bool	parse_arguments(t_data *data, char **av)
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);
+	if (data->number_of_philo <= 0)
+		return (false);
+	if (data->time_to_eat <= 0 || data->time_to_sleep <= 0
+		|| data->time_to_die <= 0)
+		return (false);
 	if (av[5] && av[5][0])
 		data->require_eat_count = ft_atoi(av[5]);
 	else if (av[5] && ft_atoi(av[5]) == 0)

@@ -6,14 +6,14 @@
 /*   By: rguigneb <rguigneb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:55:43 by rguigneb          #+#    #+#             */
-/*   Updated: 2025/02/10 10:43:38 by rguigneb         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:50:45 by rguigneb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "philosopher.h"
 
-#if GOOD_LOOKING_MESSAGE == 1
+#if GOOD_LOOKING_MESSAGES == 1
 
 void	get_left_fork(t_data *data, t_philosopher *philo)
 {
@@ -35,7 +35,7 @@ void	get_left_fork(t_data *data, t_philosopher *philo)
 
 #endif
 
-#if GOOD_LOOKING_MESSAGE == 1
+#if GOOD_LOOKING_MESSAGES == 1
 
 void	get_right_fork(t_data *data, t_philosopher *philo)
 {
